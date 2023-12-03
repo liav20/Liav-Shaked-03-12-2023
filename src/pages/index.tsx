@@ -5,6 +5,8 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const helloWeather = api.weather.currentWeather.useQuery({ city: "newyork" });
+
 
   return (
     <>
@@ -44,6 +46,9 @@ export default function Home() {
           </div>
           <p className="text-2xl text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+          </p>
+          <p className="text-2xl text-white">
+            {helloWeather.data ? helloWeather.data.greeting : "Loading tRPC query..."}
           </p>
         </div>
       </main>
