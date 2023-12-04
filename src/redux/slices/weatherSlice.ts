@@ -4,14 +4,16 @@ import { currentWeatherApiType } from "../types/CurrentWeatherResponseTypes";
 import { FiveDaysForecastApiType } from "../types/FiveDaysForecastResponseTypes";
 
 
-type RequestState = "pending" | "fulfilled" | "rejected";
+export type RequestState = "pending" | "fulfilled" | "rejected";
+
+export const initialCity ='Tel Aviv'
 
 const initialState = {
     currentWeather: {} as currentWeatherApiType,
     fiveDaysForecast: {} as FiveDaysForecastApiType,
     currentWeatherStatus: 'pending' as RequestState,
     fiveDaysForecastStatus: 'pending' as RequestState,
-    city: 'telaviv'
+    city: initialCity
 }
 
 export const fetchCurrentWeather = createAsyncThunk(
@@ -54,7 +56,7 @@ export const WeatherSlice = createSlice({
     initialState: initialState,
     reducers: {
         setCityToFavorites:()=>{
-            
+
         }
     },
     extraReducers: (builder) => {
