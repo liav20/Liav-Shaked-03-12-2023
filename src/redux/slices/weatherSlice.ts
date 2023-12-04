@@ -53,7 +53,9 @@ export const WeatherSlice = createSlice({
     name: 'getCurrentWeatherSlice',
     initialState: initialState,
     reducers: {
-
+        setCityToFavorites:()=>{
+            
+        }
     },
     extraReducers: (builder) => {
 

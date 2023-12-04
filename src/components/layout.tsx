@@ -3,7 +3,7 @@ import Navbar from './navbar'
 import { PropsWithChildren, ReactNode } from "react"
 export default function Layout({children}:{ children:ReactNode }) {
     return (
-        <div className="bg-gray-500 h-screen">
+        <div className="h-screen">
             <Navbar />
             <main className="">{children}</main>
             {/* <Footer /> */}
