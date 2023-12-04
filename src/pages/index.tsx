@@ -8,11 +8,10 @@ import { api } from "~/utils/api";
 import { fetchCurrentWeather } from "~/redux/slices/weatherSlice";
 
 export default function Home() {
-  // const hello = api.post.hello.useQuery({ text: "from tRPC" });
-  // const helloWeather = api.weather.currentWeather.useQuery({ city: "newyork" });
+
   const { data, isError, isLoading } = useGetPokemonByNameQuery("squirtle");
   const currenWeather = useSelector((state: RootState) => state.currentWeather.currentWeather)
-  const status = useSelector((state: RootState) => (state.currentWeather.status));
+  const status = useSelector((state: RootState) => (state.currentWeather.currentWeatherStatus));
   // console.log('currenWeather', currenWeather);
   const dispatch = useDispatch();
   // const {data} = api.weather.currentWeather.useQuery({ city: '' });
