@@ -1,5 +1,7 @@
+import { useTheme } from "next-themes";
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { Button } from "./button";
 
 const routes = [
     {
@@ -12,12 +14,18 @@ const routes = [
     }]
 
 export default function Navbar() {
+    const { systemTheme, theme, setTheme } = useTheme();
+    const currentTheme = theme === 'system' ? systemTheme : theme;
     const router = useRouter()
     return (
-        <div className="bg-gray-100 text-xl font-semibold">
+        <div className="text-xl font-semibold">
             <div className="flex flex-row justify-between p-3">
                 <p>Hello Weather Task</p>
-                <div className="flex gap-4 border-2 p-2 border-black">
+                <div className="flex gap-4  ">
+                    <Button
+                        onClick={() => theme == "dark" ? setTheme('light') : setTheme("dark")}
+                    >Click me
+                    </Button>
                     {routes.map((route) => (
                         <Link
                             className={``}

@@ -7,12 +7,14 @@ import { api } from "~/utils/api";
 import { fetchCurrentWeather } from "~/redux/slices/weatherSlice";
 import { Button } from "~/components/button";
 import SearchBar from "~/components/searchBar";
+import { useTheme } from "next-themes";
 
 export default function Home() {
 
   const currenWeather = useSelector((state: RootState) => state.currentWeather.currentWeather)
   const status = useSelector((state: RootState) => (state.currentWeather.currentWeatherStatus));
   
+
   
   useEffect(() => {
 
@@ -20,7 +22,7 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-center items-center gap-8 p-10">
       <SearchBar/>
-      <Button>Click me</Button>
+      
     </div>
   );
 }
