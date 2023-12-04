@@ -9,7 +9,7 @@ import { fetchCurrentWeather } from "~/redux/slices/weatherSlice";
 
 export default function Home() {
 
-  const { data, isError, isLoading } = useGetPokemonByNameQuery("squirtle");
+  // const { data, isError, isLoading } = useGetPokemonByNameQuery("squirtle");
   const currenWeather = useSelector((state: RootState) => state.currentWeather.currentWeather)
   const status = useSelector((state: RootState) => (state.currentWeather.currentWeatherStatus));
   // console.log('currenWeather', currenWeather);
@@ -21,7 +21,7 @@ export default function Home() {
   }, [])
   return (
     <div>
-      {isError ? (
+      {/* {isError ? (
         <>Oh no, there was an error</>
       ) : isLoading ? (
         <>Loading...</>
@@ -30,7 +30,7 @@ export default function Home() {
           <h3>{data.species.name}</h3>
           <img src={data.sprites.front_shiny} alt={data.species.name} />
         </>
-      ) : null}
+      ) : null} */}
       <p className="text-2xl ">
         {status}
         {/* {hello.data ? hello.data.greeting : "Loading tRPC query..."} */}
