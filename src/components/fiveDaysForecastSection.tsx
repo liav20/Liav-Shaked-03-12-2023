@@ -15,7 +15,7 @@ export default function FiveDaysForecastSection() {
             {dailyForecasts && (
                 <div className="flex sm:gap-8">
                     {dailyForecasts.map((day) => (
-                        <div>
+                        <div key={day.Date}>
                             <p>{daysOfWeek[getDayNumberByDate(day.Date)]}</p>
                             <p>{day.Temperature.Minimum.Value}
                                 {`-`}

@@ -28,6 +28,7 @@ export default function Navbar() {
                     </Button>
                     {routes.map((route) => (
                         <Link
+                            key={route.href}
                             className={``}
                             href={route.href}>{route.name}
                         </Link>
