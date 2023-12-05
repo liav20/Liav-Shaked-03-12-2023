@@ -2,20 +2,19 @@ import { type AppType } from "next/app";
 
 import { api } from "~/utils/api";
 
-import "~/styles/globals.css";
-import { Provider, useSelector } from "react-redux";
-import { RootState, store } from "~/redux/store/store";
-import { fetchCurrentWeather, fetchFiveDaysForecast, initialCity } from "~/redux/slices/weatherSlice";
+import { ThemeProvider } from "next-themes";
+import { Provider } from "react-redux";
 import Layout from "~/components/layout";
-import { ThemeProvider } from "next-themes"
+import { store } from "~/redux/store/store";
+import "~/styles/globals.css";
 import { useEffect } from "react";
+import { setFavoritesCitiesState } from "~/redux/slices/weatherSlice";
 // import { fetchCurrentWeather } from "~/redux/slices/weatherSlice";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  useEffect(() => {
-    store.dispatch(fetchFiveDaysForecast(initialCity));
-    store.dispatch(fetchCurrentWeather(initialCity));
-  }, [])
+  useEffect(()=>{
+    store.dispatch(setFavoritesCitiesState());
+  },[])
   return (
     <Provider store={store}>
       <ThemeProvider attribute="class">

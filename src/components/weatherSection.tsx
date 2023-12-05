@@ -3,8 +3,8 @@ import { RootState } from "~/redux/store/store";
 import StatusHandler from "./statusHandler";
 
 export default function WeatherSection() {
-    const status = useSelector((state: RootState) => (state.currentWeather.currentWeatherStatus));
-    const currentWeather = useSelector((state: RootState) => (state.currentWeather.currentWeather[0]))
+    const status = useSelector((state: RootState) => (state.weather.currentWeatherStatus));
+    const currentWeather = useSelector((state: RootState) => (state.weather.currentWeather[0]))
 
     return (
         <div>

@@ -3,8 +3,8 @@ import { RootState } from "~/redux/store/store";
 import StatusHandler from "./statusHandler";
 
 export default function FiveDaysForecastSection() {
-    const status = useSelector((state: RootState) => (state.currentWeather.fiveDaysForecastStatus));
-    const dailyForecasts = useSelector((state: RootState) => (state.currentWeather.fiveDaysForecast?.DailyForecasts));
+    const status = useSelector((state: RootState) => (state.weather.fiveDaysForecastStatus));
+    const dailyForecasts = useSelector((state: RootState) => (state.weather.fiveDaysForecast?.DailyForecasts));
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const getDayNumberByDate = (date: string) => {
         return new Date(date).getDay()
@@ -13,7 +13,7 @@ export default function FiveDaysForecastSection() {
         <div>
             <StatusHandler status={status} />
             {dailyForecasts && (
-                <div className="flex sm:gap-8">
+                <div className="flex flex-col sm:flex-row gap-8">
                     {dailyForecasts.map((day) => (
                         <div key={day.Date}>
                             <p>{daysOfWeek[getDayNumberByDate(day.Date)]}</p>

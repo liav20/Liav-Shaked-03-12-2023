@@ -1,13 +1,12 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux"
-import { RootState } from "~/redux/store/store"
+import { useSelector } from "react-redux";
+import { RootState } from "~/redux/store/store";
 import StatusHandler from "./statusHandler";
 
 
 export default function Location() {
-    const city = useSelector((state: RootState) => (state.currentWeather.city));
-    const currentWeatherState = useSelector((state: RootState) => (state.currentWeather.currentWeather))
-    const status = useSelector((state: RootState) => (state.currentWeather.currentWeatherStatus));
+    const city = useSelector((state: RootState) => (state.weather.city));
+    const currentWeatherState = useSelector((state: RootState) => (state.weather.currentWeather))
+    const status = useSelector((state: RootState) => (state.weather.currentWeatherStatus));
 
     return (
         <div className="flex-flex-col gap-4">

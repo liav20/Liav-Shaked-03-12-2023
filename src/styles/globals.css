@@ -73,6 +73,6 @@
 
     body {
         @apply bg-background text-foreground;
-        @apply dark:bg-gray-800 bg-white
+        @apply dark:bg-gray-900 bg-gray-100
     }
 }

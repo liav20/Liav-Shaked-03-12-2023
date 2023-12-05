@@ -1,63 +1,58 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api, clientVanilaTrpc } from "~/utils/api";
-import { currentWeatherApiType } from "../types/CurrentWeatherResponseTypes";
-import { FiveDaysForecastApiType } from "../types/FiveDaysForecastResponseTypes";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { CurrentWeatherApiType } from "../types/currentWeatherApiType";
+import { FiveDaysForecastApiType } from "../types/fiveDaysForecastApiType";
+import { fetchCityAutoComplete, fetchCurrentWeather, fetchFiveDaysForecast } from "./asyncFunctions";
+import { AutoCompleteApiType } from "../types/autoCompleteApiType";
 
 
 export type RequestState = "pending" | "fulfilled" | "rejected";
 
-export const initialCity ='Tel Aviv'
+export const initialCity = 'new york'
 
 const initialState = {
-    currentWeather: {} as currentWeatherApiType,
+    currentWeather: {} as CurrentWeatherApiType,
     fiveDaysForecast: {} as FiveDaysForecastApiType,
+    cityAutoComplete: {} as AutoCompleteApiType,
     currentWeatherStatus: 'pending' as RequestState,
     fiveDaysForecastStatus: 'pending' as RequestState,
-    city: initialCity
+    cityAutoCompleteStatus: 'pending' as RequestState,
+    city: initialCity,
+    favoritesCities:'',
+    isTemperatureCelsius: true,
 }
 
-export const fetchCurrentWeather = createAsyncThunk(
-    "../types/currentWeatherApiType",
-    async (city: string) => {
-        try {
-            const weatherData = await clientVanilaTrpc.weather.currentWeather.query({ city: city }
-                // ,void {
-                //     staleTime: 1000 * 60 * 20,
-                // }
-            );
-            console.log('data', weatherData);
-            return weatherData
-        }
-        catch (e) {
-            console.log('error', e);
-        }
-    }
-)
-export const fetchFiveDaysForecast = createAsyncThunk(
-    "../types/FiveDaysForecastResponseTypes",
-    async (city: string) => {
-        try {
-            const weatherData = await clientVanilaTrpc.weather.fiveDaysForecasts.query({ city: city }
-                // ,void {
-                //     staleTime: 1000 * 60 * 20,
-                // }
-            );
-            console.log('data', weatherData);
-            return weatherData
-        }
-        catch (e) {
-            console.log('error', e);
-        }
-    }
-)
 
 export const WeatherSlice = createSlice({
-    name: 'getCurrentWeatherSlice',
+    name: 'WeatherSlice',
     initialState: initialState,
     reducers: {
-        setCityToFavorites:()=>{
-
+        setCityName: (state, action: PayloadAction<string>) =>{
+            state.city = action.payload
+        },
+        setFavoritesCitiesState:(state)=>{
+            state.favoritesCities=localStorage.getItem('favorites')||''
+        },
+        setCityToFavorites: (state, action: PayloadAction<string>) => {
+            const favorites = localStorage.getItem('favorites');
+            if (!favorites) {
+                localStorage.setItem('favorites', action.payload)
+            } else {
+                localStorage.setItem('favorites', favorites + `,${action.payload}`)
+            }
+        },
+        removeCityFromFavorite: (state, action: PayloadAction<string>) => {
+            const favorites = localStorage.getItem('favorites');
+            if (!favorites) {
+                return
+            }
+            const regex = new RegExp(`\\b${action.payload}\\b`, 'g');
+            const newFavorites = favorites.replace(regex, '');
+            localStorage.setItem('favorites', newFavorites);
+        },
+        setTemperatureType: (state) => {
+            state.isTemperatureCelsius = !state.isTemperatureCelsius
         }
+
     },
     extraReducers: (builder) => {
 
@@ -70,9 +65,8 @@ export const WeatherSlice = createSlice({
         });
         builder.addCase(fetchCurrentWeather.fulfilled, (state, action) => {
             state.currentWeatherStatus = "fulfilled";
-            state.currentWeather = action.payload as currentWeatherApiType
+            state.currentWeather = action.payload as CurrentWeatherApiType
         });
-        
 
         builder.addCase(fetchFiveDaysForecast.pending, (state, action) => {
             state.fiveDaysForecastStatus = 'pending';
@@ -84,8 +78,19 @@ export const WeatherSlice = createSlice({
             state.fiveDaysForecastStatus = 'fulfilled';
             state.fiveDaysForecast = action.payload as FiveDaysForecastApiType
         });
+
+        builder.addCase(fetchCityAutoComplete.pending, (state, action) => {
+            state.cityAutoCompleteStatus = 'pending';
+        });
+        builder.addCase(fetchCityAutoComplete.rejected, (state, action) => {
+            state.cityAutoCompleteStatus = 'rejected';
+        });
+        builder.addCase(fetchCityAutoComplete.fulfilled, (state, action) => {
+            state.cityAutoCompleteStatus = 'fulfilled';
+            state.cityAutoComplete = action.payload as AutoCompleteApiType
+        });
     },
 
 })
 
-// export const{setCurrentWeather}=WeatherSlice.actions;
+export const { setCityToFavorites, removeCityFromFavorite,setCityName,setFavoritesCitiesState } = WeatherSlice.actions;

@@ -1,11 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import { pokemonSlice } from "../slices/pokemon/pokemonSlice"
 import { WeatherSlice } from "../slices/weatherSlice"
 
 export const store = configureStore({
     reducer: combineReducers({
-        pokemon: pokemonSlice.reducer,
-        currentWeather: WeatherSlice.reducer,
+        weather: WeatherSlice.reducer,
     })
 })
 
