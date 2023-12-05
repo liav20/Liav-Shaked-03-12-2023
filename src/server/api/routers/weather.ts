@@ -1,13 +1,10 @@
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { getAutoCompleteByName, getCityKeyByName, getCurrentWeatherByKey, getFiveDaysForecastByKey, } from "../lib/weatherFunctions";
 
-let post = {
-    id: 1,
-    name: "Hello World",
-};
 
-const currentWeatherMock={
+const currentWeatherMock = [{
     "LocalObservationDateTime": "2023-12-03T05:18:00-05:00",
     "EpochTime": 1701598680,
     "WeatherText": "Rain",
@@ -29,9 +26,9 @@ const currentWeatherMock={
     },
     "MobileLink": "http://www.accuweather.com/en/us/new-york-ny/10021/current-weather/349727?lang=en-us",
     "Link": "http://www.accuweather.com/en/us/new-york-ny/10021/current-weather/349727?lang=en-us"
-}
+}]
 
-const fiveDaysWeatherMock={
+const fiveDaysWeatherMock = {
     "Headline": {
         "EffectiveDate": "2023-12-04T07:00:00-05:00",
         "EffectiveEpochDate": 1701691200,
@@ -212,16 +209,25 @@ export const weatherRouter = createTRPCRouter({
     currentWeather: publicProcedure
         .input(z.object({ city: z.string() }))
         .query(async ({ input }) => {
-            return currentWeatherMock;
+            const key = await getCityKeyByName(input.city)
+            console.log('key trpc', key);
+            const currentWeather = await getCurrentWeatherByKey(key);
+            console.log('currentWeather', currentWeather);
+            return currentWeather
         }),
 
     fiveDaysForecasts: publicProcedure
         .input(z.object({ city: z.string() }))
         .query(async ({ input }) => {
-            return fiveDaysWeatherMock;
+            const key = await getCityKeyByName(input.city)
+            const fiveDaysForecast = await getFiveDaysForecastByKey(key);
+            return fiveDaysForecast;
         }),
 
-    locationAutocomplete: publicProcedure.query(() => {
-        return post;
-    }),
+    locationAutocomplete: publicProcedure
+        .input(z.object({ params: z.string() }))
+        .query(async ({ input }) => {
+            const res = await getAutoCompleteByName(input.params)
+            return res
+        }),
 });

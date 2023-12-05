@@ -1,4 +1,4 @@
-export type currentWeatherApiType = {
+export type currentWeatherApiType = [{
     LocalObservationDateTime: string
     EpochTime: number
     WeatherText: string
@@ -20,4 +20,4 @@ export type currentWeatherApiType = {
     }
     MobileLink: string
     Link: string
-}
+}]
