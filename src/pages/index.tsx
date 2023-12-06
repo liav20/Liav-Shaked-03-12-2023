@@ -25,7 +25,7 @@ export default function Home() {
     <div className="flex flex-col justify-center items-center gap-8 p-10 text-xl">
       {key}
       <SearchBar />
-      <div className="flex flex-col w-[80%] gap-8 ring-2 shadow-xl ring-gray-700 rounded-lg p-10">
+      <div className="flex flex-col gap-8 w-fit ring-2 shadow-xl ring-gray-700 rounded-lg p-14">
         <div className="flex w-full justify-between sm:flex-row flex-col">
           <div><Location /></div>
           <div>

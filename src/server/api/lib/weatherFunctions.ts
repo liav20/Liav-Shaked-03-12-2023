@@ -33,7 +33,7 @@ export async function getCurrentWeatherByKey(key: string) {
 
 export async function getFiveDaysForecastByKey(key: string) {
     try {
-        const res =await fetch(`${fiveDaysForecast}?${key}?${apiKeyUrl}`)
+        const res =await fetch(`${fiveDaysForecast}${key}?${apiKeyUrl}`)
         .then(res=>res.json());
         return res;
     }
