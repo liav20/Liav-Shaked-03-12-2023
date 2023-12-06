@@ -362,7 +362,6 @@ export const weatherRouter = createTRPCRouter({
     currentWeather: publicProcedure
         .input(z.object({ cityKey: z.string() }))
         .query(async ({ input }) => {
-            console.log('key',input.cityKey);
             // const key = await getCityKeyByName(input.city)
             // console.log('key trpc', key);
             // const currentWeather = await getCurrentWeatherByKey(input.cityKey);

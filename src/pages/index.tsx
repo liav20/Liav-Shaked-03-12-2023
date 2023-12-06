@@ -12,16 +12,18 @@ import { RootState, store } from "~/redux/store/store";
 
 export default function Home() {
   const currenWeather = useSelector((state: RootState) => state.weather.currentWeather)
+  const key = useSelector((state: RootState) => state.weather.cityKey);
   const status = useSelector((state: RootState) => (state.weather.cityAutoCompleteStatus));
   const dispatch = useDispatch();
   
   useEffect(() => {
-    store.dispatch(fetchFiveDaysForecast(initialCityKey));
-    store.dispatch(fetchCurrentWeather(initialCityKey));
+    store.dispatch(fetchFiveDaysForecast(key));
+    store.dispatch(fetchCurrentWeather(key));
     dispatch(setFavoritesCitiesState());
   }, [])
   return (
     <div className="flex flex-col justify-center items-center gap-8 p-10 text-xl">
+      {key}
       <SearchBar />
       <div className="flex flex-col w-[80%] gap-8 ring-2 shadow-xl ring-gray-700 rounded-lg p-10">
         <div className="flex w-full justify-between sm:flex-row flex-col">

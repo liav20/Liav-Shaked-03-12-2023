@@ -7,9 +7,9 @@ import { AutoCompleteApiType } from "../types/autoCompleteApiType";
 
 export type RequestState = "pending" | "fulfilled" | "rejected";
 
-type favoriteCities={
-    city:string,
-    key:string
+type favoriteCities = {
+    city: string,
+    key: string
 }
 export const initialCityName = 'Tel Aviv'
 export const initialCityKey = '215854'
@@ -21,7 +21,7 @@ const initialState = {
     currentWeatherStatus: 'pending' as RequestState,
     fiveDaysForecastStatus: 'pending' as RequestState,
     cityAutoCompleteStatus: 'pending' as RequestState,
-    CityKey: initialCityKey,
+    cityKey: initialCityKey,
     cityName: initialCityName,
     favoritesCities: [] as favoriteCities[],
     isTemperatureCelsius: true,
@@ -36,10 +36,10 @@ export const WeatherSlice = createSlice({
             state.cityName = action.payload
         },
         setCityKey: (state, action: PayloadAction<string>) => {
-            state.CityKey = action.payload
+            state.cityKey = action.payload
         },
         setFavoritesCitiesState: (state) => {
-            state.favoritesCities = JSON.parse(localStorage.getItem('cities') as string) ||[]
+            state.favoritesCities = JSON.parse(localStorage.getItem('cities') as string) || []
         },
         setCityToFavorites: (state, action: PayloadAction<{ city: string; key: string }>) => {
             const { city, key } = action.payload;
@@ -51,7 +51,7 @@ export const WeatherSlice = createSlice({
         removeCityFromFavorite: (state, action: PayloadAction<{ city: string; key: string }>) => {
             const { city, key } = action.payload;
             const cities = JSON.parse(localStorage.getItem('cities') as string) || [];
-            const indexToRemove = cities.findIndex((c)  => c.city === city && c.key === key);
+            const indexToRemove = cities.findIndex((c) => c.city === city && c.key === key);
             if (indexToRemove !== -1) {
                 cities.splice(indexToRemove, 1);
                 localStorage.setItem('cities', JSON.stringify(cities));

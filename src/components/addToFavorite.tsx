@@ -8,7 +8,7 @@ import { removeCityFromFavorite, setCityToFavorites } from "~/redux/slices/weath
 
 export default function AddToFavorite() {
     const city = useSelector((state: RootState) => (state.weather.cityName));
-    const key = useSelector((state: RootState) => (state.weather.CityKey));
+    const key = useSelector((state: RootState) => (state.weather.cityKey));
     const favoritesCities = useSelector((state: RootState) => (state.weather.favoritesCities));
     const dispatch = useDispatch();
     const [isCityFavorite, setIsCityFavorite] = useState(true);
@@ -16,12 +16,12 @@ export default function AddToFavorite() {
     useEffect(() => {
         const isSaved = favoritesCities.some((c) => c.city === city && c.key === key);
         setIsCityFavorite(isSaved);
-    }, [city,key,favoritesCities])
+    }, [city, key, favoritesCities])
     return (
         <div>
             {isCityFavorite ?
                 <Button onClick={() => {
-                    dispatch(removeCityFromFavorite({city:city,key:key}));
+                    dispatch(removeCityFromFavorite({ city: city, key: key }));
                     setIsCityFavorite(false);
                     toast({
                         description: "Removed from favorite",
@@ -31,7 +31,7 @@ export default function AddToFavorite() {
                 </Button>
                 :
                 <Button onClick={() => {
-                    dispatch(setCityToFavorites({city:city,key:key}));
+                    dispatch(setCityToFavorites({ city: city, key: key }));
                     setIsCityFavorite(true);
                     toast({
                         description: "Saved to favorite",
