@@ -205,7 +205,7 @@ const fiveDaysWeatherMock = {
     ]
 }
 
-const autoCompleteMock =[
+const autoCompleteMock = [
     {
         "Version": 1,
         "Key": "2333525",
@@ -360,21 +360,21 @@ const autoCompleteMock =[
 
 export const weatherRouter = createTRPCRouter({
     currentWeather: publicProcedure
-        .input(z.object({ city: z.string() }))
+        .input(z.object({ cityKey: z.string() }))
         .query(async ({ input }) => {
             // const key = await getCityKeyByName(input.city)
             // console.log('key trpc', key);
-            // const currentWeather = await getCurrentWeatherByKey(key);
+            // const currentWeather = await getCurrentWeatherByKey(input.cityKey);
             // console.log('currentWeather', currentWeather);
             // return currentWeather
             return currentWeatherMock;
         }),
 
     fiveDaysForecasts: publicProcedure
-        .input(z.object({ city: z.string() }))
+        .input(z.object({ cityKey: z.string() }))
         .query(async ({ input }) => {
             // const key = await getCityKeyByName(input.city)
-            // const fiveDaysForecast = await getFiveDaysForecastByKey(key);
+            // const fiveDaysForecast = await getFiveDaysForecastByKey(input.cityKey);
             // return fiveDaysForecast;
             return fiveDaysWeatherMock;
         }),
@@ -383,7 +383,7 @@ export const weatherRouter = createTRPCRouter({
         .input(z.object({ params: z.string() }))
         .query(async ({ input }) => {
             const res = await getAutoCompleteByName(input.params)
-            console.log('res',res);
+            console.log('res', res);
             return res
             // return autoCompleteMock;
         }),

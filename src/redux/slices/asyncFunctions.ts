@@ -3,9 +3,9 @@ import { clientVanilaTrpc } from "~/utils/api";
 
 export const fetchCurrentWeather = createAsyncThunk(
     "../types/currentWeatherApiType",
-    async (city: string) => {
+    async (cityKey: string) => {
         try {
-            const weatherData = await clientVanilaTrpc.weather.currentWeather.query({ city: city }
+            const weatherData = await clientVanilaTrpc.weather.currentWeather.query({ cityKey: cityKey }
                 // ,void {
                 //     staleTime: 1000 * 60 * 20,
                 // }
@@ -21,9 +21,9 @@ export const fetchCurrentWeather = createAsyncThunk(
 
 export const fetchFiveDaysForecast = createAsyncThunk(
     "../types/FiveDaysForecastResponseTypes",
-    async (city: string) => {
+    async (cityKey: string) => {
         try {
-            const weatherData = await clientVanilaTrpc.weather.fiveDaysForecasts.query({ city: city }
+            const weatherData = await clientVanilaTrpc.weather.fiveDaysForecasts.query({ cityKey: cityKey }
                 // ,void {
                 //     staleTime: 1000 * 60 * 20,
                 // }

@@ -13,7 +13,8 @@ export default function AddToFavorite() {
     const [isCityFavorite, setIsCityFavorite] = useState<boolean>();
     const { toast } = useToast()
     useEffect(() => {
-        setIsCityFavorite(localStorage.getItem(`favorite-${city}`) ? true : false)
+        setIsCityFavorite(favorites.includes(city))
+        console.log('test',favorites.includes(city));
     }, [])
     return (
         <div>

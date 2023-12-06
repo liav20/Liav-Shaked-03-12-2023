@@ -7,7 +7,8 @@ import { AutoCompleteApiType } from "../types/autoCompleteApiType";
 
 export type RequestState = "pending" | "fulfilled" | "rejected";
 
-export const initialCity = 'new york'
+export const initialCity = 'Tel Aviv'
+export const initialCityKey='215854'
 
 const initialState = {
     currentWeather: {} as CurrentWeatherApiType,
@@ -16,6 +17,7 @@ const initialState = {
     currentWeatherStatus: 'pending' as RequestState,
     fiveDaysForecastStatus: 'pending' as RequestState,
     cityAutoCompleteStatus: 'pending' as RequestState,
+    initialCityKey:initialCityKey,
     city: initialCity,
     favoritesCities:'',
     isTemperatureCelsius: true,

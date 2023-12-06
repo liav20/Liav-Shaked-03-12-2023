@@ -7,7 +7,7 @@ import SearchBar from "~/components/searchBar";
 import { Button } from "~/components/ui/button";
 import WeatherSection from "~/components/weatherSection";
 import { fetchCurrentWeather, fetchFiveDaysForecast } from "~/redux/slices/asyncFunctions";
-import { initialCity } from "~/redux/slices/weatherSlice";
+import { initialCity, initialCityKey } from "~/redux/slices/weatherSlice";
 import { RootState, store } from "~/redux/store/store";
 
 export default function Home() {
@@ -15,8 +15,8 @@ export default function Home() {
   const status = useSelector((state: RootState) => (state.weather.cityAutoCompleteStatus));
   
   useEffect(() => {
-    store.dispatch(fetchFiveDaysForecast(initialCity));
-    store.dispatch(fetchCurrentWeather(initialCity));
+    store.dispatch(fetchFiveDaysForecast(initialCityKey));
+    store.dispatch(fetchCurrentWeather(initialCityKey));
   }, [])
   return (
     <div className="flex flex-col justify-center items-center gap-8 p-10 text-xl">
