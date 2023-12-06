@@ -51,7 +51,7 @@ export const WeatherSlice = createSlice({
         removeCityFromFavorite: (state, action: PayloadAction<{ city: string; key: string }>) => {
             const { city, key } = action.payload;
             const cities = JSON.parse(localStorage.getItem('cities') as string) || [];
-            const indexToRemove = cities.findIndex((c) => c.city === city && c.key === key);
+            const indexToRemove = cities.findIndex((c:favoriteCities) => c.city === city && c.key === key);
             if (indexToRemove !== -1) {
                 cities.splice(indexToRemove, 1);
                 localStorage.setItem('cities', JSON.stringify(cities));
