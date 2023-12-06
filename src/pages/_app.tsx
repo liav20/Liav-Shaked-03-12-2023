@@ -12,9 +12,6 @@ import { setFavoritesCitiesState } from "~/redux/slices/weatherSlice";
 // import { fetchCurrentWeather } from "~/redux/slices/weatherSlice";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  useEffect(()=>{
-    store.dispatch(setFavoritesCitiesState());
-  },[])
   return (
     <Provider store={store}>
       <ThemeProvider attribute="class">

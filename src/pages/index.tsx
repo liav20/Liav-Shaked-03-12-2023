@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Location from "~/components/Location";
 import AddToFavorite from "~/components/addToFavorite";
 import FiveDaysForecastSection from "~/components/fiveDaysForecastSection";
@@ -7,16 +7,18 @@ import SearchBar from "~/components/searchBar";
 import { Button } from "~/components/ui/button";
 import WeatherSection from "~/components/weatherSection";
 import { fetchCurrentWeather, fetchFiveDaysForecast } from "~/redux/slices/asyncFunctions";
-import { initialCityKey } from "~/redux/slices/weatherSlice";
+import { initialCityKey, setFavoritesCitiesState } from "~/redux/slices/weatherSlice";
 import { RootState, store } from "~/redux/store/store";
 
 export default function Home() {
   const currenWeather = useSelector((state: RootState) => state.weather.currentWeather)
   const status = useSelector((state: RootState) => (state.weather.cityAutoCompleteStatus));
+  const dispatch = useDispatch();
   
   useEffect(() => {
     store.dispatch(fetchFiveDaysForecast(initialCityKey));
     store.dispatch(fetchCurrentWeather(initialCityKey));
+    dispatch(setFavoritesCitiesState());
   }, [])
   return (
     <div className="flex flex-col justify-center items-center gap-8 p-10 text-xl">

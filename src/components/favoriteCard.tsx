@@ -1,22 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CurrentWeatherApiType } from "~/redux/types/currentWeatherApiType";
 import { api } from "~/utils/api";
 
-type favoriteCardProps={
-    city:string;
-    key:string;
+type favoriteCardProps = {
+    city: string;
+    cityKey: string;
 }
 
 
-export default function FavoriteCard({city,key}:favoriteCardProps){
-    const CurrentWeather = api.weather.currentWeather.useQuery({cityKey:key});
-    
-    useEffect(()=>{
-
-    },[]);
-    return(
+export default function FavoriteCard({ city, cityKey }: favoriteCardProps) {
+    const currentWeather = api.weather.currentWeather.useQuery({ cityKey: cityKey });
+    return (
         <div>
             <h4>{city}</h4>
-            <p>{CurrentWeather && CurrentWeather[0].Temperature.Metric.Value}</p>
+            {currentWeather.data &&
+            <div>
+            <p>{currentWeather.data[0]?.Temperature.Metric.Value}</p>
+            <p>{currentWeather.data[0]?.WeatherText}</p>
+            </div>
+            }
         </div>
     )
 }
