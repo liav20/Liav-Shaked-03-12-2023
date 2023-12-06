@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { fetchCityAutoComplete, fetchCurrentWeather, fetchFiveDaysForecast } from "~/redux/slices/asyncFunctions";
 import { RootState, store } from "~/redux/store/store";
 import { useSelector } from "react-redux";
-import { setCityName } from "~/redux/slices/weatherSlice";
+import { setCityKey, setCityName } from "~/redux/slices/weatherSlice";
 import { useState } from "react";
 import StatusHandler from "./statusHandler";
 export default function SearchBar() {
@@ -34,9 +34,10 @@ export default function SearchBar() {
                             <div key={res.Key}>
                                 <button className="hover:font-semibold"
                                 onClick={() => {
-                                    dispatch(setCityName(res.LocalizedName))
-                                    store.dispatch(fetchCurrentWeather(res.LocalizedName))
-                                    store.dispatch(fetchFiveDaysForecast(res.LocalizedName))
+                                    dispatch(setCityName(res.LocalizedName));
+                                    dispatch(setCityKey(res.Key));
+                                    store.dispatch(fetchCurrentWeather(res.Key))
+                                    store.dispatch(fetchFiveDaysForecast(res.Key))
                                     setShowSearch(false);
                                 }}
                                 >{res.LocalizedName}

@@ -7,8 +7,12 @@ import { AutoCompleteApiType } from "../types/autoCompleteApiType";
 
 export type RequestState = "pending" | "fulfilled" | "rejected";
 
-export const initialCity = 'Tel Aviv'
-export const initialCityKey='215854'
+type favoriteCities={
+    city:string,
+    key:string
+}
+export const initialCityName = 'Tel Aviv'
+export const initialCityKey = '215854'
 
 const initialState = {
     currentWeather: {} as CurrentWeatherApiType,
@@ -17,9 +21,9 @@ const initialState = {
     currentWeatherStatus: 'pending' as RequestState,
     fiveDaysForecastStatus: 'pending' as RequestState,
     cityAutoCompleteStatus: 'pending' as RequestState,
-    initialCityKey:initialCityKey,
-    city: initialCity,
-    favoritesCities:'',
+    CityKey: initialCityKey,
+    cityName: initialCityName,
+    favoritesCities: [] as favoriteCities[],
     isTemperatureCelsius: true,
 }
 
@@ -28,28 +32,30 @@ export const WeatherSlice = createSlice({
     name: 'WeatherSlice',
     initialState: initialState,
     reducers: {
-        setCityName: (state, action: PayloadAction<string>) =>{
-            state.city = action.payload
+        setCityName: (state, action: PayloadAction<string>) => {
+            state.cityName = action.payload
         },
-        setFavoritesCitiesState:(state)=>{
-            state.favoritesCities=localStorage.getItem('favorites')||''
+        setCityKey: (state, action: PayloadAction<string>) => {
+            state.CityKey = action.payload
         },
-        setCityToFavorites: (state, action: PayloadAction<string>) => {
-            const favorites = localStorage.getItem('favorites');
-            if (!favorites) {
-                localStorage.setItem('favorites', action.payload)
-            } else {
-                localStorage.setItem('favorites', favorites + `,${action.payload}`)
+        setFavoritesCitiesState: (state) => {
+            state.favoritesCities = JSON.parse(localStorage.getItem('cities') as string) ||[]
+        },
+        setCityToFavorites: (state, action: PayloadAction<{ city: string; key: string }>) => {
+            const { city, key } = action.payload;
+            const cities = JSON.parse(localStorage.getItem('cities') as string) || [];
+            cities.push({ city, key });
+            localStorage.setItem('cities', JSON.stringify(cities));
+
+        },
+        removeCityFromFavorite: (state, action: PayloadAction<{ city: string; key: string }>) => {
+            const { city, key } = action.payload;
+            const cities = JSON.parse(localStorage.getItem('cities') as string) || [];
+            const indexToRemove = cities.findIndex((c)  => c.city === city && c.key === key);
+            if (indexToRemove !== -1) {
+                cities.splice(indexToRemove, 1);
+                localStorage.setItem('cities', JSON.stringify(cities));
             }
-        },
-        removeCityFromFavorite: (state, action: PayloadAction<string>) => {
-            const favorites = localStorage.getItem('favorites');
-            if (!favorites) {
-                return
-            }
-            const regex = new RegExp(`\\b${action.payload}\\b`, 'g');
-            const newFavorites = favorites.replace(regex, '');
-            localStorage.setItem('favorites', newFavorites);
         },
         setTemperatureType: (state) => {
             state.isTemperatureCelsius = !state.isTemperatureCelsius
@@ -95,4 +101,4 @@ export const WeatherSlice = createSlice({
 
 })
 
-export const { setCityToFavorites, removeCityFromFavorite,setCityName,setFavoritesCitiesState } = WeatherSlice.actions;
+export const { setCityToFavorites, removeCityFromFavorite, setCityName, setFavoritesCitiesState, setCityKey } = WeatherSlice.actions;

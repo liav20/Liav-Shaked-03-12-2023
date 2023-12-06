@@ -7,7 +7,7 @@ import SearchBar from "~/components/searchBar";
 import { Button } from "~/components/ui/button";
 import WeatherSection from "~/components/weatherSection";
 import { fetchCurrentWeather, fetchFiveDaysForecast } from "~/redux/slices/asyncFunctions";
-import { initialCity, initialCityKey } from "~/redux/slices/weatherSlice";
+import { initialCityKey } from "~/redux/slices/weatherSlice";
 import { RootState, store } from "~/redux/store/store";
 
 export default function Home() {

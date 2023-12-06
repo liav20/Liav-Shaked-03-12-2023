@@ -4,7 +4,7 @@ import StatusHandler from "./statusHandler";
 
 
 export default function Location() {
-    const city = useSelector((state: RootState) => (state.weather.city));
+    const city = useSelector((state: RootState) => (state.weather.cityName));
     const currentWeatherState = useSelector((state: RootState) => (state.weather.currentWeather))
     const status = useSelector((state: RootState) => (state.weather.currentWeatherStatus));
 

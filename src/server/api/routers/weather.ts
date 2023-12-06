@@ -382,9 +382,9 @@ export const weatherRouter = createTRPCRouter({
     locationAutocomplete: publicProcedure
         .input(z.object({ params: z.string() }))
         .query(async ({ input }) => {
-            const res = await getAutoCompleteByName(input.params)
-            console.log('res', res);
-            return res
-            // return autoCompleteMock;
+            // const res = await getAutoCompleteByName(input.params)
+            // console.log('res', res);
+            // return res
+            return autoCompleteMock;
         }),
 });
