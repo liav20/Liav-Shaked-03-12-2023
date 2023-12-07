@@ -57,7 +57,7 @@ export const WeatherSlice = createSlice({
                 localStorage.setItem('cities', JSON.stringify(cities));
             }
         },
-        setTemperatureType: (state) => {
+        setIsTemperatureCelsius: (state) => {
             state.isTemperatureCelsius = !state.isTemperatureCelsius
         }
 
@@ -101,4 +101,4 @@ export const WeatherSlice = createSlice({
 
 })
 
-export const { setCityToFavorites, removeCityFromFavorite, setCityName, setFavoritesCitiesState, setCityKey } = WeatherSlice.actions;
+export const { setCityToFavorites, removeCityFromFavorite, setCityName, setFavoritesCitiesState, setCityKey,setIsTemperatureCelsius } = WeatherSlice.actions;

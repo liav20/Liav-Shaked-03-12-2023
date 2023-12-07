@@ -362,30 +362,21 @@ export const weatherRouter = createTRPCRouter({
     currentWeather: publicProcedure
         .input(z.object({ cityKey: z.string() }))
         .query(async ({ input }) => {
-            // const key = await getCityKeyByName(input.city)
-            // console.log('key trpc', key);
-            // const currentWeather = await getCurrentWeatherByKey(input.cityKey);
-            // console.log('currentWeather', currentWeather);
-            // return currentWeather
-            return currentWeatherMock;
+            const currentWeather = await getCurrentWeatherByKey(input.cityKey);
+            return currentWeather;
         }),
 
     fiveDaysForecasts: publicProcedure
         .input(z.object({ cityKey: z.string() }))
         .query(async ({ input }) => {
-            // const key = await getCityKeyByName(input.city)
-            // const fiveDaysForecast = await getFiveDaysForecastByKey(input.cityKey);
-            // console.log('fiveDaysForecast',fiveDaysForecast);
-            // return fiveDaysForecast;
-            return fiveDaysWeatherMock;
+            const fiveDaysForecast = await getFiveDaysForecastByKey(input.cityKey);
+            return fiveDaysForecast;    
         }),
 
     locationAutocomplete: publicProcedure
         .input(z.object({ params: z.string() }))
         .query(async ({ input }) => {
             const res = await getAutoCompleteByName(input.params)
-            console.log('res', res);
-            return res
-            // return autoCompleteMock;
+            return res;
         }),
 });

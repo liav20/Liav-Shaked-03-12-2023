@@ -7,12 +7,23 @@ import { useSelector } from "react-redux";
 import { setCityKey, setCityName } from "~/redux/slices/weatherSlice";
 import { useState } from "react";
 import StatusHandler from "./statusHandler";
+import { MdSearch } from "react-icons/md";
+import LoadingAnimation from "./animations/loadingAnimation";
+
 export default function SearchBar() {
     const dispatch = useDispatch();
     const searchRes = useSelector((state: RootState) => (state.weather.cityAutoComplete))
     const status = useSelector((state: RootState) => (state.weather.cityAutoCompleteStatus));
-    const [searchValue,setSearchValue]=useState('');
-    const [showSearch,setShowSearch]=useState(false);
+    const [searchValue, setSearchValue] = useState('');
+    const [disableButton,setDisableButton] = useState(true);
+    const [showSearch, setShowSearch] = useState(false);
+
+    const inputHandler = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        const englishLettersRegex = /^[A-Za-z]+$/;
+        setDisableButton(!englishLettersRegex.test(e.target.value));
+        setSearchValue(e.target.value);
+    }
+
     return (
         <div className="">
             <>
@@ -22,29 +33,39 @@ export default function SearchBar() {
                         store.dispatch(fetchCityAutoComplete(searchValue))
                         setShowSearch(true);
                     }}>
-                    <Input onChange={(e)=>{
-                        setSearchValue(e.target.value)
-                    }} type="text" placeholder="City" />
-                    <Button type="submit">Search</Button>
+                    <Input
+                        onChange={(e) =>inputHandler(e)}
+                        type="text"
+                        placeholder="City" />
+                    <Button
+                        disabled={disableButton}
+                        className="items-center gap-2"
+                        type="submit">
+                        Search
+                        <MdSearch />
+                    </Button>
                 </form>
-                {showSearch &&<StatusHandler status={status}/>}
-                {status === 'fulfilled' && showSearch &&
+                {status === 'pending' && showSearch && <LoadingAnimation/>}
+                {status === 'rejected' && <p>Oh no, there was an error in the request</p>}
+                {status === 'fulfilled' && !searchRes && <p>Oh no, there was an error in the response</p>}
+                {status === 'fulfilled' && showSearch && searchRes &&
                     <div className="bg-gray-200 dark:bg-gray-700 rounded-md text-base">
                         {searchRes.map((res) => (
                             <div key={res.Key}>
                                 <button className="hover:font-semibold"
-                                onClick={() => {
-                                    dispatch(setCityName(res.LocalizedName));
-                                    dispatch(setCityKey(res.Key));
-                                    store.dispatch(fetchCurrentWeather(res.Key))
-                                    store.dispatch(fetchFiveDaysForecast(res.Key))
-                                    setShowSearch(false);
-                                }}
+                                    onClick={() => {
+                                        dispatch(setCityName(res.LocalizedName));
+                                        dispatch(setCityKey(res.Key));
+                                        store.dispatch(fetchCurrentWeather(res.Key))
+                                        store.dispatch(fetchFiveDaysForecast(res.Key))
+                                        setShowSearch(false);
+                                    }}
                                 >{res.LocalizedName}
                                 </button>
                             </div>
                         ))}
-                    </div>}
+                    </div>
+                }
             </>
         </div>
     )
