@@ -30,7 +30,7 @@ export default function Home() {
         Home <MdOutlineHome />
       </h2>
       <SearchBar />
-      <div className="flex flex-col gap-8 w-[90%] dark:ring-gray-200 ring-2 shadow-xl bg-indigo-100 dark:bg-indigo-900 ring-gray-700 rounded-lg p-14">
+      <div className="flex flex-col gap-8 w-[90%] dark:ring-gray-200 ring-2 shadow-xl bg-indigo-100 dark:bg-gray-700 ring-gray-700 rounded-lg p-14">
         <div className="flex w-full justify-around sm:flex-row items-center gap-4 flex-col">
           <div><Location/></div>
           <div>

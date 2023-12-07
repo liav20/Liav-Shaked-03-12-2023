@@ -15,10 +15,10 @@ export default function SearchBar() {
     const searchRes = useSelector((state: RootState) => (state.weather.cityAutoComplete))
     const status = useSelector((state: RootState) => (state.weather.cityAutoCompleteStatus));
     const [searchValue, setSearchValue] = useState('');
-    const [disableButton,setDisableButton] = useState(true);
+    const [disableButton, setDisableButton] = useState(true);
     const [showSearch, setShowSearch] = useState(false);
 
-    const inputHandler = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const englishLettersRegex = /^[A-Za-z]+$/;
         setDisableButton(!englishLettersRegex.test(e.target.value));
         setSearchValue(e.target.value);
@@ -34,7 +34,7 @@ export default function SearchBar() {
                         setShowSearch(true);
                     }}>
                     <Input
-                        onChange={(e) =>inputHandler(e)}
+                        onChange={(e) => inputHandler(e)}
                         type="text"
                         placeholder="City" />
                     <Button
@@ -45,10 +45,10 @@ export default function SearchBar() {
                         <MdSearch />
                     </Button>
                 </form>
-                {status === 'pending' && showSearch && <LoadingAnimation/>}
-                {status === 'rejected' && <p>Oh no, there was an error in the request</p>}
-                {status === 'fulfilled' && !searchRes && <p>Oh no, there was an error in the response</p>}
-                {status === 'fulfilled' && showSearch && searchRes &&
+                {status === 'pending' && showSearch && <LoadingAnimation />}
+                {status === 'rejected' && <p>Oh no, there was an error in the request API.</p>}
+                {status === 'fulfilled' && showSearch && searchRes && <p>Oh no, there was an error in the response API.</p>}
+                {status === 'fulfilled' && showSearch && searchRes.length > 1 &&
                     <div className="bg-gray-200 dark:bg-gray-700 rounded-md text-base">
                         {searchRes.map((res) => (
                             <div key={res.Key}>

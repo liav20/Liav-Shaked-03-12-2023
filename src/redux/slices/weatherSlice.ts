@@ -101,4 +101,5 @@ export const WeatherSlice = createSlice({
 
 })
 
-export const { setCityToFavorites, removeCityFromFavorite, setCityName, setFavoritesCitiesState, setCityKey,setIsTemperatureCelsius } = WeatherSlice.actions;
+export const { setCityToFavorites, removeCityFromFavorite, setCityName,
+    setFavoritesCitiesState, setCityKey,setIsTemperatureCelsius } = WeatherSlice.actions;
