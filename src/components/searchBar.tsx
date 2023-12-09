@@ -47,7 +47,7 @@ export default function SearchBar() {
                 </form>
                 {status === 'pending' && showSearch && <LoadingAnimation />}
                 {status === 'rejected' && <p>Oh no, there was an error in the request API.</p>}
-                {status === 'fulfilled' && showSearch && searchRes && <p>Oh no, there was an error in the response API.</p>}
+                {status === 'fulfilled' && showSearch && searchRes.length<1 && <p>Oh no, there was an error in the response API.</p>}
                 {status === 'fulfilled' && showSearch && searchRes.length > 1 &&
                     <div className="bg-gray-200 dark:bg-gray-700 rounded-md text-base">
                         {searchRes.map((res) => (
