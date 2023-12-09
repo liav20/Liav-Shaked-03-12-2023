@@ -1,7 +1,10 @@
 abra Web & Mobile Home Assignment
 Weather Task
 
-I used react redux and typeScript in this project
-under Next.js Framework and used tRPC to handle the 
-api req to the server.  
+I used React, Redux, and TypeScript in this project
+with the Next.js Framework and used tRPC library to handle 
+the API requests to the server and then to the third party API.  
 
+If you have any question about this project 
+please don't hesitate to contact me at
+Liav20@gmail.com.

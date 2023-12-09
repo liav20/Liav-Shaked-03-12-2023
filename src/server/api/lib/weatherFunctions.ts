@@ -5,20 +5,6 @@ const currentWeather = 'http://dataservice.accuweather.com/currentconditions/v1/
 const apiKeyUrl = `apikey=${process.env.ACCUWEATHER_API_KEY}`
 const q = `?q=`
 
-export async function getCityKeyByName(name: string) {
-//     try {
-//         const res = await fetch(`${autoCompleteUrl}${q}${name.toLowerCase()}&${apiKeyUrl}`)
-//             .then(res => res.json());
-//         console.log('key', res);
-//         console.log('key', res[0].Key);
-//         return res[0].Key;
-//     }
-//     catch (e) {
-//         console.log('error', e);
-//     }
-}
-
-
 export async function getCurrentWeatherByKey(key: string) {
     try {
         console.log(`${currentWeather}${key}?${apiKeyUrl}`);
